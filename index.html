@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">         
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             nblue: '#00AAFF',
-            ngold: '#FFD000',
+            ngold: '#00AAFF',
           },
           fontFamily: {
             orbit: ['Orbitron', 'sans-serif'],
-            mono:  ['Share Tech Mono', 'monospace'],
+            mono: ['Share Tech Mono', 'monospace'],
           },
         }
       }
@@ -26,8 +29,17 @@
   </script>
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: #000;
@@ -38,175 +50,412 @@
 
     /* Canvas energy wires */
     #wire-canvas {
-      position: fixed; inset: 0;
-      z-index: 0; pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* Scanlines */
     body::after {
       content: '';
-      position: fixed; inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
-      );
-      pointer-events: none; z-index: 1;
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px,
+          rgba(0, 0, 0, 0.07) 2px, rgba(0, 0, 0, 0.07) 4px);
+      pointer-events: none;
+      z-index: 1;
     }
 
     /* Neon glows */
-    .neon-blue { color:#00AAFF; text-shadow: 0 0 6px #00AAFF, 0 0 20px #00AAFF88, 0 0 40px #00AAFF33; }
-    .neon-gold { color:#FFD000; text-shadow: 0 0 6px #FFD000, 0 0 20px #FFD00088, 0 0 40px #FFD00033; }
-    .neon-white { text-shadow: 0 0 6px #fff8, 0 0 18px #fff3; }
+    .neon-blue {
+      color: #00AAFF;
+      text-shadow: 0 0 6px #00AAFF, 0 0 20px #00AAFF88, 0 0 40px #00AAFF33;
+    }
+
+    .neon-gold {
+      color: #00AAFF;
+      text-shadow: 0 0 6px #00AAFF, 0 0 20px #00AAFF88, 0 0 40px #00AAFF33;
+    }
+
+    .neon-white {
+      text-shadow: 0 0 6px #fff8, 0 0 18px #fff3;
+    }
 
     /* Flicker */
     @keyframes flicker {
-      0%,100%{opacity:1} 91%{opacity:1} 92%{opacity:.3} 93%{opacity:1} 95%{opacity:.7} 96%{opacity:1}
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      91% {
+        opacity: 1
+      }
+
+      92% {
+        opacity: .3
+      }
+
+      93% {
+        opacity: 1
+      }
+
+      95% {
+        opacity: .7
+      }
+
+      96% {
+        opacity: 1
+      }
     }
-    .flicker { animation: flicker 7s infinite; }
+
+    .flicker {
+      animation: flicker 7s infinite;
+    }
 
     /* Pulse dots */
     @keyframes pdot {
-      0%,100%{box-shadow:0 0 4px #00AAFF,0 0 10px #00AAFF}
-      50%{box-shadow:0 0 10px #00AAFF,0 0 24px #00AAFF}
+
+      0%,
+      100% {
+        box-shadow: 0 0 4px #00AAFF, 0 0 10px #00AAFF
+      }
+
+      50% {
+        box-shadow: 0 0 10px #00AAFF, 0 0 24px #00AAFF
+      }
     }
+
     @keyframes pdotg {
-      0%,100%{box-shadow:0 0 4px #FFD000,0 0 10px #FFD000}
-      50%{box-shadow:0 0 10px #FFD000,0 0 24px #FFD000}
+
+      0%,
+      100% {
+        box-shadow: 0 0 4px #00AAFF, 0 0 10px #00AAFF
+      }
+
+      50% {
+        box-shadow: 0 0 10px #00AAFF, 0 0 24px #00AAFF
+      }
     }
+
     .pulse-dot {
-      width:7px;height:7px;border-radius:50%;
-      background:#00AAFF;animation:pdot 1.8s ease-in-out infinite;display:inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00AAFF;
+      animation: pdot 1.8s ease-in-out infinite;
+      display: inline-block;
     }
-    .pulse-dot.gold{background:#FFD000;animation:pdotg 1.8s ease-in-out infinite;}
+
+    .pulse-dot.gold {
+      background: #00AAFF;
+      animation: pdotg 1.8s ease-in-out infinite;
+    }
 
     /* FadeUp */
     @keyframes fadeUp {
-      from{opacity:0;transform:translateY(26px)}
-      to{opacity:1;transform:translateY(0)}
+      from {
+        opacity: 0;
+        transform: translateY(26px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
     }
-    .fade-up{animation:fadeUp .65s ease both;}
-    .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
-    .d4{animation-delay:.35s}.d5{animation-delay:.45s}.d6{animation-delay:.55s}
+
+    .fade-up {
+      animation: fadeUp .65s ease both;
+    }
+
+    .d1 {
+      animation-delay: .05s
+    }
+
+    .d2 {
+      animation-delay: .15s
+    }
+
+    .d3 {
+      animation-delay: .25s
+    }
+
+    .d4 {
+      animation-delay: .35s
+    }
+
+    .d5 {
+      animation-delay: .45s
+    }
+
+    .d6 {
+      animation-delay: .55s
+    }
 
     /* Marquee */
     @keyframes marquee {
-      from{transform:translateX(0)} to{transform:translateX(-50%)}
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
     }
-    .marquee-inner{animation:marquee 24s linear infinite;white-space:nowrap;}
+
+    .marquee-inner {
+      animation: marquee 24s linear infinite;
+      white-space: nowrap;
+    }
 
     /* Nav */
-    nav{background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);}
-    .nav-link{position:relative;transition:color .3s;}
-    .nav-link::after{
-      content:'';position:absolute;bottom:-4px;left:0;
-      width:0;height:1px;background:#00AAFF;
-      box-shadow:0 0 8px #00AAFF;transition:width .3s;
+    nav {
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
     }
-    .nav-link:hover{color:#00AAFF;}.nav-link:hover::after{width:100%;}
-    .nav-link.active{color:#00AAFF;}.nav-link.active::after{width:100%;}
+
+    .nav-link {
+      position: relative;
+      transition: color .3s;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #00AAFF;
+      box-shadow: 0 0 8px #00AAFF;
+      transition: width .3s;
+    }
+
+    .nav-link:hover {
+      color: #00AAFF;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link.active {
+      color: #00AAFF;
+    }
+
+    .nav-link.active::after {
+      width: 100%;
+    }
 
     /* Cards */
-    .project-card{
-      background:#080808;
-      border:1px solid #1c1c1c;
-      position:relative;overflow:hidden;
-      transition:transform .35s cubic-bezier(.22,.68,0,1.2),
-                 border-color .35s,box-shadow .35s;
+    .project-card {
+      background: #080808;
+      border: 1px solid #1c1c1c;
+      position: relative;
+      overflow: hidden;
+      transition: transform .35s cubic-bezier(.22, .68, 0, 1.2),
+        border-color .35s, box-shadow .35s;
     }
-    .project-card::before{
-      content:'';position:absolute;top:0;left:0;
-      width:100%;height:1px;
-      background:linear-gradient(90deg,transparent,#00AAFF,transparent);
-      opacity:0;transition:opacity .4s;
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #00AAFF, transparent);
+      opacity: 0;
+      transition: opacity .4s;
     }
-    .project-card:hover::before{opacity:1;}
-    .project-card:hover{
-      transform:translateY(-6px);
-      border-color:#00AAFF33;
-      box-shadow:0 0 30px #00AAFF18,0 4px 40px #00000080;
+
+    .project-card:hover::before {
+      opacity: 1;
     }
-    .project-card.g-hover:hover{
-      border-color:#FFD00033;
-      box-shadow:0 0 30px #FFD00018,0 4px 40px #00000080;
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: #00AAFF33;
+      box-shadow: 0 0 30px #00AAFF18, 0 4px 40px #00000080;
     }
-    .project-card.g-hover::before{
-      background:linear-gradient(90deg,transparent,#FFD000,transparent);
+
+    .project-card.g-hover:hover {
+      border-color: #00AAFF33;
+      box-shadow: 0 0 30px #00AAFF18, 0 4px 40px #00000080;
+    }
+
+    .project-card.g-hover::before {
+      background: linear-gradient(90deg, transparent, #00AAFF, transparent);
     }
 
     /* Corner brackets */
-    .c-tl,.c-br{position:absolute;width:11px;height:11px;}
-    .c-tl{top:0;left:0;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;}
-    .c-br{bottom:0;right:0;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;}
-    .gold-corner .c-tl,.gold-corner .c-br{border-color:#FFD000;}
+    .c-tl,
+    .c-br {
+      position: absolute;
+      width: 11px;
+      height: 11px;
+    }
+
+    .c-tl {
+      top: 0;
+      left: 0;
+      border-top: 2px solid #00AAFF;
+      border-left: 2px solid #00AAFF;
+    }
+
+    .c-br {
+      bottom: 0;
+      right: 0;
+      border-bottom: 2px solid #00AAFF;
+      border-right: 2px solid #00AAFF;
+    }
+
+    .gold-corner .c-tl,
+    .gold-corner .c-br {
+      border-color: #00AAFF;
+    }
 
     /* Card visual area */
-    .card-vis{height:155px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-    .card-vis-lg{height:195px;}
+    .card-vis {
+      height: 155px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-vis-lg {
+      height: 195px;
+    }
 
     /* Tags */
-    .tag{
-      display:inline-block;border:1px solid #00AAFF33;
-      color:#00AAFF;font-size:.6rem;padding:2px 9px;
-      letter-spacing:.1em;text-transform:uppercase;
-      font-family:'Share Tech Mono',monospace;
+    .tag {
+      display: inline-block;
+      border: 1px solid #00AAFF33;
+      color: #00AAFF;
+      font-size: .6rem;
+      padding: 2px 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace;
     }
-    .tag-g{border-color:#FFD00033;color:#FFD000;}
+
+    .tag-g {
+      border-color: #00AAFF33;
+      color: #00AAFF;
+    }
 
     /* Filters */
-    .fbtn{
-      border:1px solid #ffffff12;color:#ffffff35;
-      font-family:'Share Tech Mono',monospace;font-size:.65rem;
-      padding:5px 18px;letter-spacing:.15em;text-transform:uppercase;
-      cursor:pointer;background:transparent;transition:all .3s;
+    .fbtn {
+      border: 1px solid #ffffff12;
+      color: #ffffff35;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .65rem;
+      padding: 5px 18px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      transition: all .3s;
     }
-    .fbtn:hover{color:#00AAFF;border-color:#00AAFF44;}
-    .fbtn.active{color:#000;background:#00AAFF;border-color:#00AAFF;box-shadow:0 0 14px #00AAFFaa;}
+
+    .fbtn:hover {
+      color: #00AAFF;
+      border-color: #00AAFF44;
+    }
+
+    .fbtn.active {
+      color: #000;
+      background: #00AAFF;
+      border-color: #00AAFF;
+      box-shadow: 0 0 14px #00AAFFaa;
+    }
 
     /* Neon buttons */
-    .btn-n{
-      border:1px solid #FFD000;color:#FFD000;background:transparent;
-      font-family:'Share Tech Mono',monospace;font-size:.65rem;
-      letter-spacing:.2em;text-transform:uppercase;padding:8px 22px;
-      cursor:pointer;transition:all .3s;box-shadow:0 0 8px #FFD00033;
-      text-decoration:none;display:inline-block;
+    .btn-n {
+      border: 1px solid #00AAFF;
+      color: #00AAFF;
+      background: transparent;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 8px 22px;
+      cursor: pointer;
+      transition: all .3s;
+      box-shadow: 0 0 8px #00AAFF33;
+      text-decoration: none;
+      display: inline-block;
     }
-    .btn-n:hover{background:#FFD000;color:#000;box-shadow:0 0 22px #FFD000bb;}
-    .btn-nb{border-color:#00AAFF;color:#00AAFF;box-shadow:0 0 8px #00AAFF33;}
-    .btn-nb:hover{background:#00AAFF;color:#000;box-shadow:0 0 22px #00AAFFbb;}
+
+    .btn-n:hover {
+      background: #00AAFF;
+      color: #000;
+      box-shadow: 0 0 22px #00AAFFbb;
+    }
+
+    .btn-nb {
+      border-color: #00AAFF;
+      color: #00AAFF;
+      box-shadow: 0 0 8px #00AAFF33;
+    }
+
+    .btn-nb:hover {
+      background: #00AAFF;
+      color: #000;
+      box-shadow: 0 0 22px #00AAFFbb;
+    }
 
     /* Links */
-    .nl{
-      color:#00AAFF66;font-size:.65rem;letter-spacing:.12em;
-      text-transform:uppercase;text-decoration:none;
-      border-bottom:1px solid transparent;transition:all .3s;
+    .nl {
+      color: #00AAFF66;
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all .3s;
     }
-    .nl:hover{color:#00AAFF;border-color:#00AAFF;text-shadow:0 0 8px #00AAFF;}
-    .nl-g{color:#FFD00066;}
-    .nl-g:hover{color:#FFD000;border-color:#FFD000;text-shadow:0 0 8px #FFD000;}
+
+    .nl:hover {
+      color: #00AAFF;
+      border-color: #00AAFF;
+      text-shadow: 0 0 8px #00AAFF;
+    }
+
+    .nl-g {
+      color: #00AAFF66;
+    }
+
+    .nl-g:hover {
+      color: #00AAFF;
+      border-color: #00AAFF;
+      text-shadow: 0 0 8px #00AAFF;
+    }
+
+    .devicon-tailwindcss-plain,
+    .devicon-tailwindcss-plain::before {
+      color: #00AAFF !important;
+      fill: #00AAFF !important;
+    }
 
     /* Stat boxes */
-    .stat-box{
-      border:1px solid #1e1e1e;padding:14px 22px;
-      position:relative;background:#060606;
+    .stat-box {
+      border: 1px solid #1e1e1e;
+      padding: 14px 22px;
+      position: relative;
+      background: #060606;
     }
   </style>
 </head>
+
 <body class="min-h-screen">
 
   <canvas id="wire-canvas"></canvas>
-
-  <!-- NAV 
-  <nav class="relative z-10 flex items-center justify-between px-8 md:px-16 py-5 border-b border-white/5">
-    <a href="#" class="font-orbit text-sm tracking-widest neon-blue flicker">&lt;<span style="color: #FFD000;">DEV</span>.WEB&gt;</a>
-    <div class="flex gap-8 text-xs text-white/35 font-mono">
-      <a href="#" class="nav-link">Início</a>
-      <a href="#" class="nav-link active">Projetos</a>
-      <a href="#" class="nav-link">Sobre</a>
-      <a href="#" class="nav-link">Contato</a>
-    </div>
-    <a href="#" class="btn-n hidden md:inline-block">Contratar →</a>
-  </nav>
-  -->
 
   <!-- HERO -->
   <header class="relative z-10 px-8 md:px-16 pt-20 pb-14">
@@ -216,31 +465,44 @@
       <span class="block text-5xl md:text-8xl neon-gold">PROJECTS</span>
     </h1>
 
-    <!-- Caixas de Status -->
+    <!-- STATUS -->
 
     <div class="fade-up d4 flex gap-4 mt-10 flex-wrap">
 
 
       <div class="stat-box">
-        <div class="font-orbit text-2xl neon-blue font-black">5</div>
+        <div class="font-orbit text-2xl neon-blue font-black">6</div>
         <div class="font-mono text-xs text-white/25 mt-1 tracking-widest">Tecnologias</div>
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;"></div>
+        <div
+          style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid  #00AAFF;border-left:2px solid  #00AAFF;">
+        </div>
+        <div
+          style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid  #00AAFF;border-right:2px solid  #00AAFF;">
+        </div>
       </div>
       <div class="stat-box">
-        <div class="font-orbit text-2xl neon-gold font-black">∞</div>
+        <div class="font-orbit text-2xl white font-black">∞</div>
         <div class="font-mono text-xs text-white/25 mt-1 tracking-widest">COMMITS</div>
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #FFD000;border-left:2px solid #FFD000;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #FFD000;border-right:2px solid #FFD000;"></div>
+        <div
+          style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;">
+        </div>
+        <div
+          style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;">
+        </div>
       </div>
       <div class="stat-box">
-        <div class="font-orbit text-2xl neon-blue font-black">100%</div>
+        <div class="font-orbit text-2xl white font-black">100%</div>
         <div class="font-mono text-xs text-white/25 mt-1 tracking-widest">DEDICAÇÃO</div>
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;"></div>
+        <div
+          style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid  #00AAFF;border-left:2px solid  #00AAFF;">
+        </div>
+        <div
+          style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid  #00AAFF;border-right:2px solid  #00AAFF;">
+        </div>
       </div>
     </div>
   </header>
+
 
   <!-- TECNOLOGIAS -->
   <div class="relative z-10 border-y border-white/5 py-4" style="background:rgba(0,170,255,0.03);">
@@ -250,9 +512,15 @@
         <span class="font-mono text-xs tracking-widest">HTML5</span>
       </div>
       <div class="flex items-center gap-2 text-white/40">
-        <i class="devicon-css3-plain text-2xl" style="color:#1572B6;"></i>
-        <span class="font-mono text-xs tracking-widest">CSS3</span>
+        <i class="devicon-tailwindcss-plain text-2xl" style="color:#0b7ccd;"></i>
+        <span class="font-mono text-xs tracking-widest">Tailwind CSS</span>
       </div>
+
+      <div class="flex items-center gap-2 text-white/40">
+        <i class="devicon-angular-plain colored text-2xl" style="color:#c31010;"></i>
+        <span class="font-mono text-xs tracking-widest">Angular</span>
+      </div>
+
       <div class="flex items-center gap-2 text-white/40">
         <i class="devicon-javascript-plain text-2xl" style="color:#F7DF1E;"></i>
         <span class="font-mono text-xs tracking-widest">JavaScript</span>
@@ -261,289 +529,82 @@
         <i class="devicon-nodejs-plain colored text-2xl" style="color:#339933;"></i>
         <span class="font-mono text-xs tracking-widest">Node.js</span>
       </div>
+
       <div class="flex items-center gap-2 text-white/40">
-        <i class="devicon-tailwindcss-plain text-2xl" style="color:#06B6D4;"></i>
-        <span class="font-mono text-xs tracking-widest">Tailwind</span>
+        <i class="devicon-docker-plain text-2xl" style="color:#0008e7;"></i>
+        <span class="font-mono text-xs tracking-widest">Docker</span>
       </div>
-      <div class="flex items-center gap-2 text-white/40">
-        <i class="devicon-git-plain text-2xl" style="color:#F05032;"></i>
-        <span class="font-mono text-xs tracking-widest">Git</span>
-      </div>
-      <div class="flex items-center gap-2 text-white/40">
-        <i class="devicon-github-original text-2xl" style="color:#fff;"></i>
-        <span class="font-mono text-xs tracking-widest">GitHub</span>
-      </div>
-     
-      
+
     </div>
   </div>
+
 
   <!-- FILTERS -->
   <section class="relative z-10 px-8 md:px-16 mt-12 flex flex-wrap gap-3 items-center">
     <span class="font-mono text-xs text-white/20 tracking-widest mr-2">FILTRAR:</span>
     <button onclick="fc('all')" class="fbtn active" data-f="all">Todos</button>
-    <button onclick="fc('web')"  class="fbtn" data-f="web">Web App</button>
-    <button onclick="fc('api')"  class="fbtn" data-f="api">API / Back</button>
-    <button onclick="fc('ui')"   class="fbtn" data-f="ui">UI / Front</button>
+    <button onclick="fc('web')" class="fbtn" data-f="web">Web App</button>
+    <button onclick="fc('api')" class="fbtn" data-f="api">API / Back</button>
+    <button onclick="fc('ui')" class="fbtn" data-f="ui">UI / Front</button>
   </section>
+
 
   <!-- CARDS -->
   <main class="relative z-10 px-8 md:px-16 mt-8 pb-28">
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="pgrid">
-
-      <!-- Cartão Grande — Destaque
-      <article data-cat="web" class="project-card g-hover fade-up d1 md:col-span-2 cursor-pointer group">
-        <div style="position:absolute;top:0;left:0;width:13px;height:13px;border-top:2px solid #FFD000;border-left:2px solid #FFD000;z-index:2;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:13px;height:13px;border-bottom:2px solid #FFD000;border-right:2px solid #FFD000;z-index:2;"></div>
-
-        <div class="card-vis card-vis-lg" style="background:linear-gradient(135deg,#070400,#0c0800);">
-          <svg viewBox="0 0 520 195" class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="gg"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              <filter id="gb"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <line x1="0" y1="65"  x2="520" y2="65"  stroke="#FFD000" stroke-width=".3" opacity=".12"/>
-            <line x1="0" y1="130" x2="520" y2="130" stroke="#00AAFF" stroke-width=".3" opacity=".1"/>
-            <line x1="130" y1="0" x2="130" y2="195" stroke="#00AAFF" stroke-width=".3" opacity=".1"/>
-            <line x1="260" y1="0" x2="260" y2="195" stroke="#FFD000" stroke-width=".3" opacity=".08"/>
-            <line x1="390" y1="0" x2="390" y2="195" stroke="#00AAFF" stroke-width=".3" opacity=".1"/>
-            <polyline points="0,97 70,97 70,42 190,42 190,97 330,97 330,55 455,55 455,97 520,97"
-              fill="none" stroke="#FFD000" stroke-width="1.3" opacity=".55" filter="url(#gg)"/>
-            <polyline points="0,148 55,148 55,118 175,118 175,158 295,158 295,125 435,125 435,148 520,148"
-              fill="none" stroke="#00AAFF" stroke-width="1" opacity=".5" filter="url(#gb)"/>
-            <circle cx="70"  cy="97" r="3" fill="#FFD000" filter="url(#gg)"/>
-            <circle cx="190" cy="97" r="3" fill="#FFD000" filter="url(#gg)"/>
-            <circle cx="330" cy="97" r="3" fill="#FFD000" filter="url(#gg)"/>
-            <circle cx="175" cy="118" r="3" fill="#00AAFF" filter="url(#gb)"/>
-            <circle cx="295" cy="158" r="3" fill="#00AAFF" filter="url(#gb)"/>
-            <rect x="215" y="68" width="90" height="58" rx="2" fill="none" stroke="#FFD000" stroke-width="1" opacity=".4" filter="url(#gg)"/>
-            <text x="260" y="101" fill="#FFD000" font-size="8" text-anchor="middle" opacity=".75" font-family="'Share Tech Mono',monospace">DASHBOARD</text>
-          </svg>
-          <span class="font-orbit text-xs neon-gold z-10 tracking-widest">&lt; DESTAQUE /&gt;</span>
-          <span class="absolute top-4 right-5 font-mono text-xs" style="border:1px solid #FFD00077;color:#FFD000;padding:3px 10px;background:#FFD00010;">WEB APP</span>
-        </div>
-
-        <div class="p-6">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <h2 class="font-orbit text-xl font-bold text-white group-hover:text-yellow-400 transition-colors duration-300">Dashboard Financeiro</h2>
-              <p class="font-mono text-xs text-white/30 mt-2 leading-loose max-w-lg">
-                Painel analítico com gráficos em tempo real, filtros dinâmicos e autenticação JWT. Dados ao vivo via WebSocket com cache Redis.
-              </p>
-            </div>
-            <span class="font-orbit text-6xl font-black shrink-0" style="color:rgba(255,255,255,0.04);">01</span>
-          </div>
-          <div class="flex gap-2 mt-4 flex-wrap">
-            <span class="tag tag-g">
-            <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-          </span>
-
-            <span class="tag tag-g">
-            <i class="devicon-nodejs-plain-wordmark colored"></i>
-          </span>
-          
-            <span class="tag tag-g">JWT</span>
-            <span class="tag tag-g">WebSocket</span>
-            <span class="tag tag-g">Redis</span>
-          </div>
-          <div class="flex gap-6 mt-5">
-            <a href="#" class="nl nl-g">Ver Projeto →</a>
-            <a href="#" class="nl">GitHub ↗</a>
-          </div>
-        </div>
-      </article>
-      -->
-
       <!-- Card 1 -->
       <article data-cat="ui" class="project-card fade-up d2 cursor-pointer group">
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;z-index:2;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;z-index:2;"></div>
+        <div
+          style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid  #00AAFF;border-left:2px solid  #00AAFF;z-index:2;">
+        </div>
+        <div
+          style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid  #00AAFF;border-right:2px solid  #00AAFF;z-index:2;">
+        </div>
 
         <div class="card-vis" style="background:linear-gradient(135deg,#050505,#001018);">
-          <svg viewBox="0 0 200 155" class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
-            <defs><filter id="g2"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-            <rect x="15" y="15" width="170" height="125" rx="3" fill="none" stroke="#00AAFF" stroke-width=".7" opacity=".25"/>
-            <rect x="15" y="15" width="170" height="20" fill="rgba(0,170,255,0.05)"/>
-            <circle cx="29" cy="25" r="4" fill="#00AAFF" opacity=".7" filter="url(#g2)"/>
-            <circle cx="43" cy="25" r="4" fill="#FFD000" opacity=".45"/>
-            <rect x="24" y="46" width="152" height="5" rx="1" fill="#00AAFF" opacity=".15"/>
-            <rect x="24" y="58" width="110" height="3" rx="1" fill="#00AAFF" opacity=".08"/>
-            <rect x="24" y="67" width="130" height="3" rx="1" fill="#00AAFF" opacity=".08"/>
-            <rect x="24" y="88" width="62" height="23" rx="2" fill="rgba(0,170,255,0.1)" stroke="#00AAFF" stroke-width=".8" filter="url(#g2)"/>
-            <rect x="96" y="88" width="62" height="23" rx="2" fill="rgba(255,208,0,0.07)" stroke="#FFD000" stroke-width=".8"/>
-            <text x="55"  y="104" fill="#00AAFF" font-size="6.5" text-anchor="middle" font-family="monospace" opacity=".8">action</text>
-            <text x="127" y="104" fill="#FFD000" font-size="6.5" text-anchor="middle" font-family="monospace" opacity=".8">cancel</text>
-          </svg>
-          <span class="font-mono text-xs z-10 tracking-widest" style="color:#00AAFF55;">[ UI SYSTEM ]</span>
+          <img src="" alt="">
         </div>
 
         <div class="p-5">
           <div class="flex items-start justify-between gap-2">
-            <h2 class="font-orbit text-sm font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">Design System</h2>
-            <span class="font-orbit text-4xl font-black shrink-0" style="color:rgba(255,255,255,0.04);">02</span>
+            <h2
+              class="font-orbit text-sm font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
+              Lojas de Roupas</h2>
           </div>
           <p class="font-mono text-xs text-white/30 mt-2 leading-loose">
-            Componentes reutilizáveis com tokens de design, temas dark/light e Tailwind config customizado.
+            E-commerce de moda responsiva, com filtros dinâmicos e integração com redes sociais.
           </p>
-          <div class="flex gap-2 mt-4 flex-wrap">
-            <span class="tag">Figma</span><span class="tag">Tailwind</span><span class="tag">Storybook</span>
-          </div>
-          <div class="flex gap-5 mt-4"><a href="#" class="nl">Ver Projeto →</a><a href="#" class="nl">GitHub ↗</a></div>
+
+          <div class="flex gap-5 mt-4"><a href="#" class="nl">Ver Projeto ↗</a></div>
         </div>
       </article>
 
       <!-- Card 2 -->
-      <article data-cat="api" class="project-card fade-up d3 cursor-pointer group">
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;z-index:2;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;z-index:2;"></div>
+      <article data-cat="ui" class="project-card fade-up d3 cursor-pointer group">
+        <div
+          style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid  #00AAFF;border-left:2px solid  #00AAFF;z-index:2;">
+        </div>
+        <div
+          style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid  #00AAFF;border-right:2px solid  #00AAFF;z-index:2;">
+        </div>
 
         <div class="card-vis" style="background:linear-gradient(135deg,#050505,#00080f);">
-          <svg viewBox="0 0 200 155" class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
-            <defs><filter id="g3"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-            <circle cx="60"  cy="77" r="26" fill="none" stroke="#00AAFF" stroke-width=".8" opacity=".35" filter="url(#g3)"/>
-            <circle cx="140" cy="77" r="26" fill="none" stroke="#FFD000" stroke-width=".8" opacity=".35"/>
-            <circle cx="100" cy="48" r="15" fill="none" stroke="#00AAFF" stroke-width=".5" opacity=".22"/>
-            <line x1="86" y1="77" x2="114" y2="77" stroke="#fff" stroke-width=".5" opacity=".18"/>
-            <line x1="60"  y1="51" x2="100" y2="48" stroke="#00AAFF" stroke-width=".5" opacity=".28"/>
-            <line x1="140" y1="51" x2="100" y2="48" stroke="#FFD000" stroke-width=".5" opacity=".28"/>
-            <circle cx="60"  cy="77" r="4" fill="#00AAFF" filter="url(#g3)"/>
-            <circle cx="140" cy="77" r="4" fill="#FFD000"/>
-            <circle cx="100" cy="48" r="3" fill="#fff" opacity=".35"/>
-            <text x="60"  y="81" fill="#00AAFF" font-size="6.5" text-anchor="middle" font-family="monospace" opacity=".85">API</text>
-            <text x="140" y="81" fill="#FFD000" font-size="6.5" text-anchor="middle" font-family="monospace" opacity=".85">DB</text>
-            <polyline points="10,128 48,128 48,108 78,108 78,128 122,128 122,108 152,108 152,128 190,128"
-              fill="none" stroke="#00AAFF" stroke-width=".6" opacity=".28" filter="url(#g3)"/>
-          </svg>
-          <span class="font-mono text-xs z-10 tracking-widest" style="color:#00AAFF55;">[ REST API ]</span>
+          <img src="" alt="">
         </div>
 
         <div class="p-5">
           <div class="flex items-start justify-between gap-2">
-            <h2 class="font-orbit text-sm font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">API de Gerenciamento</h2>
-            <span class="font-orbit text-4xl font-black shrink-0" style="color:rgba(255,255,255,0.04);">03</span>
+            <h2
+              class="font-orbit text-sm font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
+              Clinicas Médicas</h2>
           </div>
           <p class="font-mono text-xs text-white/30 mt-2 leading-loose">
-            Backend REST com Express e MongoDB. CRUD completo, Swagger docs e rate limiting.
+            Página para Clínicas médicas, com o portfolio do médico e suas redes sociais.
           </p>
-          <div class="flex gap-2 mt-4 flex-wrap">
-            <span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Swagger</span>
-          </div>
-          <div class="flex gap-5 mt-4"><a href="#" class="nl">Ver Projeto →</a><a href="#" class="nl">GitHub ↗</a></div>
+          <div class="flex gap-5 mt-4"><a href="#" class="nl">Ver Projeto ↗</a></div>
         </div>
       </article>
-
-      <!-- Card 3
-      <article data-cat="ui" class="project-card g-hover fade-up d4 cursor-pointer group">
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #FFD000;border-left:2px solid #FFD000;z-index:2;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #FFD000;border-right:2px solid #FFD000;z-index:2;"></div>
-
-        <div class="card-vis" style="background:linear-gradient(135deg,#080600,#050505);">
-          <svg viewBox="0 0 200 155" class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
-            <defs><filter id="g4"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-            <rect x="10" y="10" width="180" height="135" rx="3" fill="none" stroke="#FFD000" stroke-width=".5" opacity=".18"/>
-            <rect x="10" y="10" width="180" height="17" fill="rgba(255,208,0,0.04)"/>
-            <rect x="20" y="38" width="78" height="7" rx="1" fill="#FFD000" opacity=".22" filter="url(#g4)"/>
-            <rect x="20" y="52" width="52" height="3" rx="1" fill="#FFD000" opacity=".1"/>
-            <rect x="20" y="65" width="48" height="13" rx="2" fill="#FFD000" opacity=".55" filter="url(#g4)"/>
-            <rect x="20" y="90" width="44" height="38" rx="2" fill="none" stroke="#00AAFF" stroke-width=".7" opacity=".38"/>
-            <rect x="74" y="90" width="44" height="38" rx="2" fill="none" stroke="#00AAFF" stroke-width=".7" opacity=".38"/>
-            <rect x="128" y="90" width="44" height="38" rx="2" fill="none" stroke="#FFD000" stroke-width=".7" opacity=".38"/>
-            <rect x="116" y="34" width="64" height="48" rx="2" fill="rgba(0,170,255,0.06)" stroke="#00AAFF" stroke-width=".5" opacity=".35"/>
-          </svg>
-          <span class="font-mono text-xs z-10 tracking-widest" style="color:#FFD00055;">[ LANDING PAGE ]</span>
-        </div>
-
-        <div class="p-5">
-          <div class="flex items-start justify-between gap-2">
-            <h2 class="font-orbit text-sm font-bold text-white group-hover:text-yellow-400 transition-colors duration-300">SaaS Landing Page</h2>
-            <span class="font-orbit text-4xl font-black shrink-0" style="color:rgba(255,255,255,0.04);">04</span>
-          </div>
-          <p class="font-mono text-xs text-white/30 mt-2 leading-loose">
-            Página de conversão com animações CSS, preços e formulário de captura de leads.
-          </p>
-          <div class="flex gap-2 mt-4 flex-wrap">
-            <span class="tag tag-g">HTML5</span><span class="tag tag-g">GSAP</span><span class="tag tag-g">Tailwind</span>
-          </div>
-          <div class="flex gap-5 mt-4"><a href="#" class="nl nl-g">Ver Projeto →</a><a href="#" class="nl">GitHub ↗</a></div>
-        </div>
-      </article>
-      -->
-
-      <!-- Card 4 
-      <article data-cat="web" class="project-card fade-up d5 cursor-pointer group">
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;z-index:2;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;z-index:2;"></div>
-
-        <div class="card-vis" style="background:linear-gradient(135deg,#050505,#001108);">
-          <svg viewBox="0 0 200 155" class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
-            <defs><filter id="g5"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-            <rect x="14" y="18" width="118" height="28" rx="11" fill="rgba(0,170,255,0.09)" stroke="#00AAFF" stroke-width=".7" opacity=".48" filter="url(#g5)"/>
-            <rect x="68" y="58" width="118" height="28" rx="11" fill="rgba(255,208,0,0.07)" stroke="#FFD000" stroke-width=".7" opacity=".45"/>
-            <rect x="14" y="100" width="98" height="28" rx="11" fill="rgba(0,170,255,0.09)" stroke="#00AAFF" stroke-width=".7" opacity=".38" filter="url(#g5)"/>
-            <rect x="28" y="28" width="76" height="3" rx="1" fill="#00AAFF" opacity=".28"/>
-            <rect x="28" y="36" width="52" height="3" rx="1" fill="#00AAFF" opacity=".18"/>
-            <rect x="82" y="68" width="82" height="3" rx="1" fill="#FFD000" opacity=".28"/>
-            <rect x="82" y="76" width="58" height="3" rx="1" fill="#FFD000" opacity=".14"/>
-            <rect x="14" y="140" width="158" height="9" rx="4" fill="rgba(255,255,255,0.02)" stroke="#fff" stroke-width=".35" opacity=".18"/>
-            <circle cx="164" cy="144" r="4.5" fill="#00AAFF" opacity=".5" filter="url(#g5)"/>
-          </svg>
-          <span class="font-mono text-xs z-10 tracking-widest" style="color:#00AAFF55;">[ CHAT APP ]</span>
-        </div>
-
-        <div class="p-5">
-          <div class="flex items-start justify-between gap-2">
-            <h2 class="font-orbit text-sm font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">Chat em Tempo Real</h2>
-            <span class="font-orbit text-4xl font-black shrink-0" style="color:rgba(255,255,255,0.04);">05</span>
-          </div>
-          <p class="font-mono text-xs text-white/30 mt-2 leading-loose">
-            Mensagens com Socket.io, salas privadas, notificações push e histórico persistido.
-          </p>
-          <div class="flex gap-2 mt-4 flex-wrap">
-            <span class="tag">Socket.io</span><span class="tag">React</span><span class="tag">Node.js</span>
-          </div>
-          <div class="flex gap-5 mt-4"><a href="#" class="nl">Ver Projeto →</a><a href="#" class="nl">GitHub ↗</a></div>
-        </div>
-      </article>
-      -->
-
-      <!-- Card 5
-      <article data-cat="api" class="project-card fade-up d6 cursor-pointer group">
-        <div style="position:absolute;top:0;left:0;width:11px;height:11px;border-top:2px solid #00AAFF;border-left:2px solid #00AAFF;z-index:2;"></div>
-        <div style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-bottom:2px solid #00AAFF;border-right:2px solid #00AAFF;z-index:2;"></div>
-
-        <div class="card-vis" style="background:linear-gradient(135deg,#050505,#08000d);">
-          <svg viewBox="0 0 200 155" class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
-            <defs><filter id="g6"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-            <rect x="14" y="14" width="172" height="127" rx="3" fill="rgba(0,170,255,0.02)" stroke="#00AAFF" stroke-width=".5" opacity=".22"/>
-            <text x="22" y="35" fill="#00AAFF" font-size="7" font-family="monospace" opacity=".6">$ node server.js</text>
-            <text x="22" y="49" fill="#FFD000" font-size="7" font-family="monospace" opacity=".5">&gt; Server running :3000</text>
-            <text x="22" y="63" fill="#00AAFF" font-size="7" font-family="monospace" opacity=".4">&gt; MongoDB connected</text>
-            <text x="22" y="77" fill="#ffffff" font-size="7" font-family="monospace" opacity=".18">&gt; Redis ready</text>
-            <text x="22" y="91" fill="#00AAFF" font-size="7" font-family="monospace" opacity=".3">GET  /api/users   200</text>
-            <text x="22" y="105" fill="#FFD000" font-size="7" font-family="monospace" opacity=".28">POST /auth/login  200</text>
-            <text x="22" y="119" fill="#00AAFF" font-size="7" font-family="monospace" opacity=".22">DEL  /item/42     204</text>
-            <rect x="14" y="126" width="172" height="15" fill="rgba(0,170,255,0.04)"/>
-            <text x="22" y="138" fill="#00AAFF" font-size="7" font-family="monospace" opacity=".5">_█</text>
-          </svg>
-          <span class="font-mono text-xs z-10 tracking-widest" style="color:#00AAFF55;">[ FULL STACK ]</span>
-        </div>
-
-        <div class="p-5">
-          <div class="flex items-start justify-between gap-2">
-            <h2 class="font-orbit text-sm font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">Plataforma E-commerce</h2>
-            <span class="font-orbit text-4xl font-black shrink-0" style="color:rgba(255,255,255,0.04);">06</span>
-          </div>
-          <p class="font-mono text-xs text-white/30 mt-2 leading-loose">
-            Loja completa com carrinho, checkout via Stripe, painel admin e relatórios de venda.
-          </p>
-          <div class="flex gap-2 mt-4 flex-wrap">
-            <span class="tag">Next.js</span><span class="tag">Stripe</span><span class="tag">PostgreSQL</span>
-          </div>
-          <div class="flex gap-5 mt-4"><a href="#" class="nl">Ver Projeto →</a><a href="#" class="nl">GitHub ↗</a></div>
-        </div>
-      </article>
-      -->
-
     </div>
 
     <!-- Botão de Mais Projetos... 
@@ -553,11 +614,15 @@
     -->
   </main>
 
+
+
   <!-- FOOTER -->
-  <footer class="relative z-10 border-t border-white/5 px-8 md:px-16 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+  <footer
+    class="relative z-10 border-t border-white/5 px-8 md:px-16 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-3">
       <span class="pulse-dot gold"></span>
-      <span class="font-mono text-xs text-white/18 tracking-widest">&copy; 2026 DEV. WEB PROJECTS</span>
+      <span class="font-mono text-xs text-white/18 tracking-widest">&copy; <span id="current-year"></span> DEV. WEB
+        PROJECTS</span>
     </div>
     <div class="flex gap-8">
       <a href="https://github.com/MarcosDAnton" target="_blank" class="nl">GitHub</a>
@@ -565,152 +630,170 @@
     </div>
   </footer>
 
+
   <script>
-  // FILTER
-  function fc(cat) {
-    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`[data-f="${cat}"]`).classList.add('active');
-    document.querySelectorAll('#pgrid article').forEach(card => {
-      const match = cat === 'all' || card.dataset.cat === cat;
-      card.style.transition = 'opacity .3s ease, transform .3s ease';
-      if (match) {
-        card.style.opacity = '1'; card.style.transform = '';
-        card.style.pointerEvents = ''; card.style.display = '';
-      } else {
-        card.style.opacity = '0'; card.style.transform = 'scale(0.96)';
-        card.style.pointerEvents = 'none';
-        setTimeout(() => { card.style.display = 'none'; }, 320);
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+
+
+    // FILTER
+    function fc(cat) {
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-f="${cat}"]`).classList.add('active');
+      document.querySelectorAll('#pgrid article').forEach(card => {
+        const match = cat === 'all' || card.dataset.cat === cat;
+        card.style.transition = 'opacity .3s ease, transform .3s ease';
+        if (match) {
+          card.style.opacity = '1'; card.style.transform = '';
+          card.style.pointerEvents = ''; card.style.display = '';
+        } else {
+          card.style.opacity = '0'; card.style.transform = 'scale(0.96)';
+          card.style.pointerEvents = 'none';
+          setTimeout(() => { card.style.display = 'none'; }, 320);
+        }
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ENERGY WIRES CANVAS
+    const cv = document.getElementById('wire-canvas');
+    const ctx = cv.getContext('2d');
+
+    function resize() { cv.width = innerWidth; cv.height = innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+
+    const WIRES = 6;
+    const wires = [];
+
+    function makeWire() {
+      const col = [0, 170, 255];
+      const pts = [];
+
+      // start from edge
+      const edge = Math.floor(Math.random() * 4); // 0=top,1=right,2=bottom,3=left
+      let sx, sy;
+      if (edge === 0) { sx = Math.random() * cv.width; sy = 0; }
+      else if (edge === 1) { sx = cv.width; sy = Math.random() * cv.height; }
+      else if (edge === 2) { sx = Math.random() * cv.width; sy = cv.height; }
+      else { sx = 0; sy = Math.random() * cv.height; }
+
+      pts.push({ x: sx, y: sy });
+
+      // build zigzag path
+      let cx2 = sx, cy2 = sy;
+      const steps = 3 + Math.floor(Math.random() * 6);
+      for (let i = 0; i < steps; i++) {
+        if (Math.random() < 0.5) {
+          cx2 = Math.random() * cv.width;
+        } else {
+          cy2 = Math.random() * cv.height;
+        }
+        pts.push({ x: cx2, y: cy2 });
       }
-    });
-  }
+      // end at opposite-ish edge
+      if (edge === 0) pts.push({ x: Math.random() * cv.width, y: cv.height + 10 });
+      else if (edge === 1) pts.push({ x: -10, y: Math.random() * cv.height });
+      else if (edge === 2) pts.push({ x: Math.random() * cv.width, y: -10 });
+      else pts.push({ x: cv.width + 10, y: Math.random() * cv.height });
 
-  // ENERGY WIRES CANVAS
-  const cv  = document.getElementById('wire-canvas');
-  const ctx = cv.getContext('2d');
+      return {
+        pts, col,
+        alpha: 0.10 + Math.random() * 0.14,
+        width: 0.4 + Math.random() * 0.9,
+        progress: Math.random(),
+        speed: 0.0007 + Math.random() * 0.0013,
+        tail: 0.1 + Math.random() * 0.2,
+        glow: 2 + Math.random() * 5,
+      };
+    }
 
-  function resize() { cv.width = innerWidth; cv.height = innerHeight; }
-  resize(); window.addEventListener('resize', resize);
+    for (let i = 0; i < WIRES; i++) wires.push(makeWire());
 
-  const WIRES = 16;
-  const wires = [];
+    function ptAt(pts, t) {
+      const total = pts.length - 1;
+      const seg = Math.min(Math.floor(t * total), total - 1);
+      const f = t * total - seg;
+      const a = pts[seg], b = pts[seg + 1];
+      return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
+    }
 
-  function makeWire() {
-    const isGold = Math.random() < 0.42;
-    const col = isGold ? [255, 208, 0] : [0, 170, 255];
-    const pts = [];
+    function drawWire(w) {
+      const [r, g, b] = w.col;
+      const head = w.progress;
+      const tail = Math.max(0, head - w.tail);
+      const N = 70;
 
-    // start from edge
-    const edge = Math.floor(Math.random() * 4); // 0=top,1=right,2=bottom,3=left
-    let sx, sy;
-    if (edge === 0)      { sx = Math.random() * cv.width; sy = 0; }
-    else if (edge === 1) { sx = cv.width; sy = Math.random() * cv.height; }
-    else if (edge === 2) { sx = Math.random() * cv.width; sy = cv.height; }
-    else                 { sx = 0; sy = Math.random() * cv.height; }
-
-    pts.push({ x: sx, y: sy });
-
-    // build zigzag path
-    let cx2 = sx, cy2 = sy;
-    const steps = 3 + Math.floor(Math.random() * 6);
-    for (let i = 0; i < steps; i++) {
-      if (Math.random() < 0.5) {
-        cx2 = Math.random() * cv.width;
-      } else {
-        cy2 = Math.random() * cv.height;
+      // glow pass
+      ctx.save();
+      ctx.shadowColor = `rgb(${r},${g},${b})`;
+      ctx.shadowBlur = w.glow * 2;
+      ctx.strokeStyle = `rgba(${r},${g},${b},${w.alpha * 0.22})`;
+      ctx.lineWidth = w.width * 2.5;
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      ctx.beginPath();
+      for (let i = 0; i <= N; i++) {
+        const t = tail + (head - tail) * (i / N);
+        const p = ptAt(w.pts, t);
+        i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
       }
-      pts.push({ x: cx2, y: cy2 });
+      ctx.stroke();
+      ctx.restore();
+
+      // core
+      ctx.save();
+      ctx.shadowColor = `rgb(${r},${g},${b})`;
+      ctx.shadowBlur = w.glow * 0.6;
+      ctx.strokeStyle = `rgba(${r},${g},${b},${w.alpha * 0.7})`;
+      ctx.lineWidth = w.width * 0.8;
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      ctx.beginPath();
+      for (let i = 0; i <= N; i++) {
+        const t = tail + (head - tail) * (i / N);
+        const p = ptAt(w.pts, t);
+        i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+      ctx.restore();
+
+      // head spark
+      const hp = ptAt(w.pts, head);
+      ctx.save();
+      ctx.shadowColor = `rgb(${r},${g},${b})`;
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = `rgba(${r},${g},${b},${Math.min(w.alpha * 1.4, 0.5)})`;
+      ctx.beginPath();
+      ctx.arc(hp.x, hp.y, w.width * 2.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
     }
-    // end at opposite-ish edge
-    if (edge === 0)      pts.push({ x: Math.random() * cv.width, y: cv.height + 10 });
-    else if (edge === 1) pts.push({ x: -10, y: Math.random() * cv.height });
-    else if (edge === 2) pts.push({ x: Math.random() * cv.width, y: -10 });
-    else                 pts.push({ x: cv.width + 10, y: Math.random() * cv.height });
 
-    return {
-      pts, col,
-      alpha: 0.18 + Math.random() * 0.28,
-      width: 0.5 + Math.random() * 1.3,
-      progress: Math.random(),
-      speed: 0.0007 + Math.random() * 0.0013,
-      tail: 0.1 + Math.random() * 0.2,
-      glow: 5 + Math.random() * 10,
-    };
-  }
+    let last = 0;
+    function loop(ts) {
+      const dt = Math.min((ts - last) / 1000, 0.05);
+      last = ts;
+      ctx.clearRect(0, 0, cv.width, cv.height);
 
-  for (let i = 0; i < WIRES; i++) wires.push(makeWire());
-
-  function ptAt(pts, t) {
-    const total = pts.length - 1;
-    const seg = Math.min(Math.floor(t * total), total - 1);
-    const f   = t * total - seg;
-    const a = pts[seg], b = pts[seg + 1];
-    return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
-  }
-
-  function drawWire(w) {
-    const [r, g, b] = w.col;
-    const head = w.progress;
-    const tail = Math.max(0, head - w.tail);
-    const N = 70;
-
-    // glow pass
-    ctx.save();
-    ctx.shadowColor = `rgb(${r},${g},${b})`;
-    ctx.shadowBlur = w.glow * 2.5;
-    ctx.strokeStyle = `rgba(${r},${g},${b},${w.alpha * 0.35})`;
-    ctx.lineWidth = w.width * 3.5;
-    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-    ctx.beginPath();
-    for (let i = 0; i <= N; i++) {
-      const t = tail + (head - tail) * (i / N);
-      const p = ptAt(w.pts, t);
-      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-    }
-    ctx.stroke();
-    ctx.restore();
-
-    // core
-    ctx.save();
-    ctx.shadowColor = `rgb(${r},${g},${b})`;
-    ctx.shadowBlur = w.glow;
-    ctx.strokeStyle = `rgba(${r},${g},${b},${w.alpha})`;
-    ctx.lineWidth = w.width;
-    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-    ctx.beginPath();
-    for (let i = 0; i <= N; i++) {
-      const t = tail + (head - tail) * (i / N);
-      const p = ptAt(w.pts, t);
-      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-    }
-    ctx.stroke();
-    ctx.restore();
-
-    // head spark
-    const hp = ptAt(w.pts, head);
-    ctx.save();
-    ctx.shadowColor = `rgb(${r},${g},${b})`;
-    ctx.shadowBlur = 22;
-    ctx.fillStyle = `rgba(${r},${g},${b},${Math.min(w.alpha * 2.2, 1)})`;
-    ctx.beginPath();
-    ctx.arc(hp.x, hp.y, w.width * 2.8, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  let last = 0;
-  function loop(ts) {
-    const dt = Math.min((ts - last) / 1000, 0.05);
-    last = ts;
-    ctx.clearRect(0, 0, cv.width, cv.height);
-
-    for (const w of wires) {
-      w.progress += w.speed * dt * 15;
-      if (w.progress > 1 + w.tail) Object.assign(w, makeWire(), { progress: 0 });
-      drawWire(w);
+      for (const w of wires) {
+        w.progress += w.speed * dt * 15;
+        if (w.progress > 1 + w.tail) Object.assign(w, makeWire(), { progress: 0 });
+        drawWire(w);
+      }
+      requestAnimationFrame(loop);
     }
     requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
   </script>
 </body>
+
 </html>
